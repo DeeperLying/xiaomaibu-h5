@@ -28,6 +28,8 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash')
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 
@@ -305,6 +307,7 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling'
         }),
         ...(modules.webpackAliases || {})
+        // 'pages/': path.join(__dirname, '../src/pages')
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -319,7 +322,10 @@ module.exports = function (webpackEnv) {
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator
-        ])
+        ]),
+        new TsconfigPathsPlugin({
+          configFile: path.join(__dirname, '../tsconfig.json') //tsconfig中的paths配置同步到webpack中
+        })
       ]
     },
     module: {
@@ -425,7 +431,7 @@ module.exports = function (webpackEnv) {
               exclude: /@babel(?:\/|\\{1,2})runtime/,
               loader: require.resolve('babel-loader'),
               options: {
-                babelrc: false,
+                babelrc: true,
                 configFile: false,
                 compact: false,
                 presets: [

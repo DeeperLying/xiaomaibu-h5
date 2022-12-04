@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -116,7 +117,8 @@
     "lint-staged": "^13.0.4",
     "prettier": "^2.8.0",
     "prettier-eslint": "^15.0.1",
-    "react-vant": "^3.1.0"
+    "react-vant": "^3.1.0",
+    "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "jest": {
     "roots": [
@@ -169,10 +171,5 @@
       "jest-watch-typeahead/testname"
     ],
     "resetMocks": true
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   }
 }
