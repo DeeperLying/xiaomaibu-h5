@@ -33,7 +33,7 @@ module.exports = {
     'max-statements-per-line': 0, // 强制每一行中所允许的最大语句数量
     'space-before-function-paren': [0, 'always'], // 强制在 function的左括号之前使用一致的空格
     'no-param-reassign': 1, // 不允许对 function 的参数进行重新赋值
-    camelcase: 2, //强制驼峰法命名
+    camelcase: 0, //强制驼峰法命名
     'no-const-assign': 2, //禁止修改const声明的变量
     'no-unused-vars': [1, { vars: 'all', args: 'after-used' }], //不能有声明后未被使用的变量或参数
     'no-underscore-dangle': 0, //标识符不能以_开头或结尾
