@@ -20,5 +20,6 @@
     // 路径别名
     "paths": { "pages/*": ["src/pages/*"] }
   },
-  "include": ["src/", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

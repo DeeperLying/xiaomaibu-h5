@@ -1,6 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from 'react-vant'
+import sendRequest from 'src/lib/service/request'
 const Home = () => {
+  useEffect(() => {
+    sendRequest({
+      url: '/api/common/weather/get15DaysWeatherByArea',
+      method: 'GET',
+      params: {},
+      interceptors: {
+        requestInterceptors(res) {
+          console.log('接口请求拦截')
+
+          return res
+        },
+        responseInterceptors(result) {
+          console.log('接口响应拦截-----')
+          return result
+        }
+      }
+    })
+  }, [])
   return (
     <div>
       home page
