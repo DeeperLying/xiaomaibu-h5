@@ -1,3 +1,7 @@
 scripts/build.js
 
 scripts/start.js
+
+config/*
+
+react-app-env.d.ts
