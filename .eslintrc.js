@@ -58,6 +58,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/camelcase': ['off', { properties: 'always' }], //强制驼峰法命名（ts）
     '@typescript-eslint/no-use-before-define': 1,
+    '@typescript-eslint/triple-slash-reference': 0,
+    '@typescript-eslint/no-var-requires': 0,
     'react-hooks/rules-of-hooks': 'error', // 非react组件中使用hooks语法这样的语法错误
     'react-hooks/exhaustive-deps': 'warn'
   }
