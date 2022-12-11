@@ -1,5 +1,12 @@
+/*
+ * @Author: Lee
+ * @Date: 2022-12-04 19:02:04
+ * @LastEditTime: 2022-12-11 22:40:38
+ * @LastEditors: Lee
+ */
 import Request from './conf'
 import { AxiosResponse } from 'axios'
+import Cookies from 'js-cookie'
 
 import type { RequestConfig } from './types'
 
@@ -15,8 +22,12 @@ interface YWZRequestConfig<T, R> extends RequestConfig<YWZResponse<R>> {
 }
 
 const request = new Request({
-  baseURL: 'http://123.249.102.202:8443/',
+  //baseURL: 'http://123.249.102.202:8443/',
+  baseURL: 'http://127.0.0.1:8443/api/',
   timeout: 1000 * 60 * 5,
+  headers: {
+    Authentication: Cookies.get('token')
+  },
   interceptors: {
     // 请求拦截器
     requestInterceptors: (config) => config,

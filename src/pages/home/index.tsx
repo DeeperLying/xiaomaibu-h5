@@ -4,7 +4,7 @@ import sendRequest from 'src/lib/service/request'
 const Home = () => {
   useEffect(() => {
     sendRequest({
-      url: '/api/common/weather/get15DaysWeatherByArea',
+      url: 'api/wxRequest',
       method: 'GET',
       params: {},
       interceptors: {

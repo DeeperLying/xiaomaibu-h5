@@ -1,3 +1,9 @@
+/*
+ * @Author: Lee
+ * @Date: 2022-12-03 22:23:36
+ * @LastEditTime: 2022-12-11 18:15:34
+ * @LastEditors: Lee
+ */
 module.exports = {
   parser: '@typescript-eslint/parser',
   env: {
