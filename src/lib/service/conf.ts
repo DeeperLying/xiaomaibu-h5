@@ -98,7 +98,6 @@ class Request {
           if (config.interceptors?.responseInterceptors) {
             res = config.interceptors.responseInterceptors(res)
           }
-
           resolve(res)
         })
         .catch((err: any) => {

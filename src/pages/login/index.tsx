@@ -1,9 +1,10 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2022-12-24 17:43:21
+ * @LastEditTime: 2022-12-24 18:14:36
  * @LastEditors: Lee
  */
+import Cookies from 'js-cookie'
 import React from 'react'
 import { Button, Input } from 'react-vant'
 import { Form } from 'react-vant'
@@ -13,22 +14,20 @@ export default function Login() {
   const [form] = Form.useForm()
 
   const onFinish = (values: any) => {
-    console.log(values)
     sendRequest({
       url: 'login',
       method: 'POST',
       data: { ...values },
       interceptors: {
         requestInterceptors(res) {
-          console.log('接口请求拦截')
-
           return res
         },
         responseInterceptors(result) {
-          console.log('接口响应拦截-----')
           return result
         }
       }
+    }).then(({ response: { data } }) => {
+      Cookies.set('Token', data.token)
     })
   }
 

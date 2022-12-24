@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 19:02:04
- * @LastEditTime: 2022-12-11 22:40:38
+ * @LastEditTime: 2022-12-24 18:11:56
  * @LastEditors: Lee
  */
 import Request from './conf'
@@ -10,14 +10,16 @@ import Cookies from 'js-cookie'
 
 import type { RequestConfig } from './types'
 
-export interface YWZResponse<T> {
+export interface Response<T> {
   statusCode: number
   desc: string
   result: T
+  response: T
+  token: string
 }
 
 // 重写返回类型
-interface YWZRequestConfig<T, R> extends RequestConfig<YWZResponse<R>> {
+interface YWZRequestConfig<T, R> extends RequestConfig<Response<R>> {
   data?: T
 }
 
@@ -46,7 +48,7 @@ const request = new Request({
  * @returns {Promise}
  */
 const sendRequest = <D = any, T = any>(config: YWZRequestConfig<D, T>) => {
-  return request.request<YWZResponse<T>>(config)
+  return request.request<Response<T>>(config)
 }
 // 取消请求
 export const cancelRequest = (url: string | string[]) => {
