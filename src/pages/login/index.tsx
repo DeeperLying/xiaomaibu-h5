@@ -1,12 +1,12 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2022-12-11 20:29:15
+ * @LastEditTime: 2022-12-24 17:43:21
  * @LastEditors: Lee
  */
 import React from 'react'
 import { Button, Input } from 'react-vant'
-import { Form } from 'react-vant/es/form'
+import { Form } from 'react-vant'
 import sendRequest from 'src/lib/service/request'
 
 export default function Login() {

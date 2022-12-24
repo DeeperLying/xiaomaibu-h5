@@ -1,10 +1,16 @@
+/*
+ * @Author: Lee
+ * @Date: 2022-12-04 15:49:38
+ * @LastEditTime: 2022-12-24 17:42:33
+ * @LastEditors: Lee
+ */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import 'react-vant/es/styles'
+// import 'react-vant/es/styles'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
