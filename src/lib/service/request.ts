@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 19:02:04
- * @LastEditTime: 2022-12-24 18:41:24
+ * @LastEditTime: 2023-02-25 21:42:02
  * @LastEditors: Lee
  */
 import Request from './conf'
@@ -24,8 +24,8 @@ interface YWZRequestConfig<T, R> extends RequestConfig<Response<R>> {
 }
 
 const request = new Request({
-  //baseURL: 'http://123.249.102.202:8443/',
-  baseURL: 'http://127.0.0.1:8443/api/',
+  baseURL: 'http://blog.xiaomaibu.pro/api/',
+  // baseURL: 'http://127.0.0.1:8443/api/',
   timeout: 1000 * 60 * 5,
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
