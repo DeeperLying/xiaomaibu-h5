@@ -1,17 +1,33 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2022-12-24 18:14:36
+ * @LastEditTime: 2023-02-26 00:03:35
  * @LastEditors: Lee
  */
 import Cookies from 'js-cookie'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Input } from 'react-vant'
 import { Form } from 'react-vant'
 import sendRequest from 'src/lib/service/request'
+import wx from 'weixin-js-sdk'
 
 export default function Login() {
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    wx.ready(() => {
+      wx.getLocation({
+        type: 'wgs84', // 默认为wgs84的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
+        success: function (res: any) {
+          const latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
+          const longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
+          const speed = res.speed // 速度，以米/每秒计
+          const accuracy = res.accuracy // 位置精度
+          console.log(latitude, longitude, speed, accuracy)
+        }
+      })
+    })
+  }, [])
 
   const onFinish = (values: any) => {
     sendRequest({
