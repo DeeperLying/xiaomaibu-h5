@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2023-02-26 00:03:35
+ * @LastEditTime: 2023-02-26 21:30:00
  * @LastEditors: Lee
  */
 import Cookies from 'js-cookie'
@@ -9,10 +9,28 @@ import React, { useEffect } from 'react'
 import { Button, Input } from 'react-vant'
 import { Form } from 'react-vant'
 import sendRequest from 'src/lib/service/request'
+import { getQueryParams } from 'src/utils/filterUrl'
 import wx from 'weixin-js-sdk'
 
 export default function Login() {
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    const querys = getQueryParams(window.location.search)
+    if (querys?.code) {
+      sendRequest({
+        url: '/getWxUserAuthInfo',
+        method: 'GET',
+        params: { code: querys?.code },
+        interceptors: {
+          responseInterceptors(result) {
+            console.log('接口响应拦截-----')
+            return result
+          }
+        }
+      })
+    }
+  }, [])
 
   useEffect(() => {
     wx.ready(() => {
