@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 19:02:04
- * @LastEditTime: 2023-02-25 22:41:46
+ * @LastEditTime: 2023-03-05 00:55:51
  * @LastEditors: Lee
  */
 import Request from './conf'
@@ -28,8 +28,8 @@ const request = new Request({
   baseURL: 'http://127.0.0.1:8443/api/',
   timeout: 1000 * 60 * 5,
   headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-    Authentication: Cookies.get('Token')
+    Authentication: Cookies.get('Token'),
+    'Content-Type': 'application/json; charset=utf-8'
   },
   interceptors: {
     // 请求拦截器
