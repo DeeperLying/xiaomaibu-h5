@@ -9,7 +9,7 @@ import React, { useEffect } from 'react'
 import { Button, Input } from 'react-vant'
 import { Form } from 'react-vant'
 import sendRequest from 'src/lib/service/request'
-import { getQueryParams } from 'src/utils/filterUrl'
+import { getQueryParams } from 'src/utils/public'
 import wx from 'weixin-js-sdk'
 
 export default function Login() {

@@ -9,9 +9,11 @@ const Home = () => {
 
   useEffect(() => {
     sendRequest({
-      url: 'api/wxRequest',
+      url: '/chat',
       method: 'GET',
-      params: {},
+      params: {
+        value: '看看世界如何'
+      },
       interceptors: {
         requestInterceptors(res) {
           console.log('接口请求拦截')

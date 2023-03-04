@@ -1,14 +1,14 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-03 20:59:01
- * @LastEditTime: 2023-02-26 16:44:40
+ * @LastEditTime: 2023-03-04 22:13:55
  * @LastEditors: Lee
  */
 import React, { ReactElement, useEffect } from 'react'
 import { useLocation, useRoutes } from 'react-router'
 // import wx from 'weixin-js-sdk'
 
-import { getQueryParams } from './utils/filterUrl'
+import { getEnvironment, getQueryParams } from './utils/public'
 
 import './App.css'
 
@@ -31,6 +31,10 @@ function App(): ReactElement {
   // }, [])
 
   useEffect(() => {
+    if (!getEnvironment()) {
+      return
+    }
+
     const params = getQueryParams(querys?.search)
     if (params?.code) {
       return
