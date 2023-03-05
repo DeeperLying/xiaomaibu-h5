@@ -1,12 +1,14 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-05 00:19:04
- * @LastEditTime: 2023-03-05 01:52:21
+ * @LastEditTime: 2023-03-05 15:35:44
  * @LastEditors: Lee
  */
 
 import React, { useState } from 'react'
-import { Form, Input, Button, Toast, Card } from 'react-vant'
+import { Form, Input, Button, Toast, Card, NoticeBar } from 'react-vant'
+import { VolumeO } from '@react-vant/icons'
+
 import sendRequest from 'src/lib/service/request'
 
 type fromType = {
@@ -51,6 +53,10 @@ const Chat = () => {
 
   return (
     <>
+      <NoticeBar
+        leftIcon={<VolumeO />}
+        text='chatGpt API 层级都被墙🧱了。试一试运气吧或许能够调用。'
+      />
       <div>
         {chatList.map((chat, index) => {
           return (
