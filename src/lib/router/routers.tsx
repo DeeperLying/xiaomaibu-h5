@@ -1,15 +1,17 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 16:57:58
- * @LastEditTime: 2023-03-05 00:20:37
+ * @LastEditTime: 2023-03-26 00:59:20
  * @LastEditors: Lee
  */
 import React from 'react'
+import { Navigate } from 'react-router'
+
 import Home from 'pages/home'
 import Login from 'pages/login'
 import VerifyWxRequest from 'pages/verifyWxRequest'
 import Chat from 'pages/chat'
-import { Navigate } from 'react-router'
+import UserCenter from 'pages/userCenter/userCenter'
 
 const RouterConfig = [
   {
@@ -27,6 +29,10 @@ const RouterConfig = [
   {
     path: '/chat',
     element: <Chat />
+  },
+  {
+    path: '/user-center',
+    element: <UserCenter />
   },
   {
     path: '/',

@@ -1,60 +1,51 @@
-import React, { useCallback, useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { Button } from 'react-vant'
-import sendRequest from 'src/lib/service/request'
-import wx from 'weixin-js-sdk'
+import React, { useEffect, useState } from 'react'
+import { CountDown, Empty, Button } from 'react-vant'
+import { useLocation } from 'react-router'
+
+// import wx from 'weixin-js-sdk'
+import { getEnvironment, getQueryParams } from 'src/utils/public'
+import { getWxUserAuthCode } from 'src/utils/wx_auth'
 
 const Home = () => {
-  const navigate = useNavigate()
+  const querys = useLocation()
+  const [isWeChat, setIsWeChat] = useState<boolean>(false)
+  // const getLocation = useCallback(() => {
+  //   wx.ready(() => {
+  //     wx.getLocation({
+  //       type: 'wgs84', // 默认为wgs84的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
+  //       success: function (res: any) {
+  //         const latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
+  //         const longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
+  //         const speed = res.speed // 速度，以米/每秒计
+  //         const accuracy = res.accuracy // 位置精度
+  //         console.log(latitude, longitude, speed, accuracy)
+  //       }
+  //     })
+  //   })
+  // }, [])
 
   useEffect(() => {
-    sendRequest({
-      url: '/chat',
-      method: 'GET',
-      params: {
-        value: '看看世界如何'
-      },
-      interceptors: {
-        requestInterceptors(res) {
-          console.log('接口请求拦截')
+    if (!getEnvironment()) {
+      return
+    }
 
-          return res
-        },
-        responseInterceptors(result) {
-          console.log('接口响应拦截-----')
-          return result
-        }
-      }
-    })
-  }, [])
+    const params = getQueryParams(querys?.search)
+    if (params?.code) {
+      return
+    }
 
-  const getLocation = useCallback(() => {
-    wx.ready(() => {
-      wx.getLocation({
-        type: 'wgs84', // 默认为wgs84的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
-        success: function (res: any) {
-          const latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
-          const longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
-          const speed = res.speed // 速度，以米/每秒计
-          const accuracy = res.accuracy // 位置精度
-          console.log(latitude, longitude, speed, accuracy)
-        }
-      })
-    })
-  }, [])
+    setIsWeChat(true)
+  }, [querys?.search])
 
   return (
     <div>
-      home page
-      <Button type='primary' onClick={() => getLocation()}>
-        wx
-      </Button>
-      <Button type='info' onClick={() => navigate('/login')}>
-        login
-      </Button>
-      <Button type='default'>Default</Button>
-      <Button type='warning'>Warning</Button>
-      <Button type='danger'>Dangeer</Button>
+      <Empty description='工程师正在玩命的开发中....' />
+      <CountDown time={30 * 60 * 60 * 1000} format='DD 天 HH 时 mm 分 ss 秒' />
+      {isWeChat && (
+        <Button type='info' onClick={getWxUserAuthCode}>
+          Login
+        </Button>
+      )}
     </div>
   )
 }

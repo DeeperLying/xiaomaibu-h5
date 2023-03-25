@@ -1,22 +1,21 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-03 20:59:01
- * @LastEditTime: 2023-03-04 22:13:55
+ * @LastEditTime: 2023-03-26 01:20:47
  * @LastEditors: Lee
  */
-import React, { ReactElement, useEffect } from 'react'
-import { useLocation, useRoutes } from 'react-router'
+import React, { ReactElement } from 'react'
+import { useRoutes } from 'react-router'
 // import wx from 'weixin-js-sdk'
 
-import { getEnvironment, getQueryParams } from './utils/public'
+import Layout from 'src/components/Layout/Layout'
 
 import './App.css'
 
 import RouterConfig from 'src/lib/router/routers'
-import { getWxUserAuthCode } from './utils/wx_auth'
+// import { getWxUserAuthCode } from './utils/wx_auth'
 
 function App(): ReactElement {
-  const querys = useLocation()
   // useEffect(() => {
   //   if (!wx.ready()) {
   //     wx.config({
@@ -30,21 +29,12 @@ function App(): ReactElement {
   //   }
   // }, [])
 
-  useEffect(() => {
-    if (!getEnvironment()) {
-      return
-    }
-
-    const params = getQueryParams(querys?.search)
-    if (params?.code) {
-      return
-    }
-
-    getWxUserAuthCode()
-  }, [querys?.search])
-
   const element = useRoutes(RouterConfig)
-  return <div className='App'>{element}</div>
+  return (
+    <div className='App'>
+      <Layout>{element}</Layout>
+    </div>
+  )
 }
 
 export default App

@@ -1,18 +1,21 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2023-02-26 21:30:00
+ * @LastEditTime: 2023-03-26 01:43:40
  * @LastEditors: Lee
  */
-import Cookies from 'js-cookie'
+
 import React, { useEffect } from 'react'
-import { Button, Input } from 'react-vant'
-import { Form } from 'react-vant'
+import { Button, Input, Form, Toast } from 'react-vant'
+import { useNavigate } from 'react-router'
+import wx from 'weixin-js-sdk'
+import Cookies from 'js-cookie'
+
 import sendRequest from 'src/lib/service/request'
 import { getQueryParams } from 'src/utils/public'
-import wx from 'weixin-js-sdk'
 
 export default function Login() {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -21,14 +24,18 @@ export default function Login() {
       sendRequest({
         url: '/getWxUserAuthInfo',
         method: 'GET',
-        params: { code: querys?.code },
-        interceptors: {
-          responseInterceptors(result) {
-            console.log('接口响应拦截-----')
-            return result
-          }
-        }
+        params: { code: querys?.code }
       })
+        .then(({ code, data }: any) => {
+          if (code === 200 && Object.keys(data)?.length) {
+            Cookies.set('token', data.token)
+            Cookies.set('userInfo', JSON.stringify(data.userInfo))
+            navigate('/user-center')
+          }
+        })
+        .catch(() => {
+          Toast('Login fail')
+        })
     }
   }, [])
 
