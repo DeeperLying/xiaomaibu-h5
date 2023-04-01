@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-05 00:19:04
- * @LastEditTime: 2023-04-01 17:49:45
+ * @LastEditTime: 2023-04-01 18:16:16
  * @LastEditors: Lee
  */
 
@@ -73,7 +73,14 @@ const Chat = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button round nativeType='submit' type='primary' loading={loading} block>
+          <Button
+            round
+            nativeType='submit'
+            type='primary'
+            loading={loading}
+            disabled={loading}
+            block
+          >
             发送聊天信息
           </Button>
         </Form.Item>
