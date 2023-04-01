@@ -1,13 +1,12 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-05 00:19:04
- * @LastEditTime: 2023-03-05 15:35:44
+ * @LastEditTime: 2023-04-01 17:49:45
  * @LastEditors: Lee
  */
 
 import React, { useState } from 'react'
-import { Form, Input, Button, Toast, Card, NoticeBar } from 'react-vant'
-import { VolumeO } from '@react-vant/icons'
+import { Form, Input, Button, Toast, Card } from 'react-vant'
 
 import sendRequest from 'src/lib/service/request'
 
@@ -53,10 +52,6 @@ const Chat = () => {
 
   return (
     <>
-      <NoticeBar
-        leftIcon={<VolumeO />}
-        text='chatGpt API 层级都被墙🧱了。试一试运气吧或许能够调用。'
-      />
       <div>
         {chatList.map((chat, index) => {
           return (
@@ -83,6 +78,11 @@ const Chat = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      <div style={{ width: '170px' }}>
+        希望给你带来快乐的同时,也别忘记了ChatGpt是收费💰的😭.希望收到你的打赏。
+        <img width='200px' height='auto' src={require('../../static/WechatIMG91.jpeg')} />
+      </div>
     </>
   )
 }
