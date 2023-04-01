@@ -1,14 +1,14 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-25 23:37:44
- * @LastEditTime: 2023-04-01 17:31:29
+ * @LastEditTime: 2023-04-01 17:59:27
  * @LastEditors: Lee
  */
 
 import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Tabbar } from 'react-vant/lib/tabbar'
+import { Tabbar } from 'react-vant/'
 import { HomeO, Search } from '@react-vant/icons'
 
 const Menu = () => {
