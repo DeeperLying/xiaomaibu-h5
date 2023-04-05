@@ -1,3 +1,9 @@
+/*
+ * @Author: Lee
+ * @Date: 2023-03-26 02:12:57
+ * @LastEditTime: 2023-04-05 19:43:44
+ * @LastEditors: Lee
+ */
 import React, { useEffect, useState } from 'react'
 import { CountDown, Empty, Button } from 'react-vant'
 import { useLocation } from 'react-router'
@@ -5,6 +11,7 @@ import { useLocation } from 'react-router'
 // import wx from 'weixin-js-sdk'
 import { getEnvironment, getQueryParams } from 'src/utils/public'
 import { getWxUserAuthCode } from 'src/utils/wx_auth'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const querys = useLocation()
@@ -41,6 +48,9 @@ const Home = () => {
     <div>
       <Empty description='工程师正在玩命的开发中....' />
       <CountDown time={30 * 60 * 60 * 1000} format='DD 天 HH 时 mm 分 ss 秒' />
+
+      <Link to={'/aliPay'}>开启聊天</Link>
+
       {isWeChat && (
         <Button type='info' onClick={getWxUserAuthCode}>
           Login
