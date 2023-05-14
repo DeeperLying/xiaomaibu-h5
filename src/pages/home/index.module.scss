@@ -1,0 +1,9 @@
+.home {
+  &_number {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

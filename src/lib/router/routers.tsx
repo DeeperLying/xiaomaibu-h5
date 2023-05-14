@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 16:57:58
- * @LastEditTime: 2023-05-07 11:36:57
+ * @LastEditTime: 2023-05-14 12:12:39
  * @LastEditors: Lee
  */
 import React from 'react'
@@ -15,6 +15,7 @@ import UserCenter from 'pages/userCenter/userCenter'
 import AiImage from 'pages/aiImage/aiImage'
 import AliPay from 'pages/aliPay/aliPay'
 import CreateGoods from 'pages/goods/createGoods/createGoods'
+import Create from 'pages/goods/create/create'
 
 const RouterConfig = [
   {
@@ -46,8 +47,12 @@ const RouterConfig = [
     element: <AliPay />
   },
   {
-    path: '/create-goods',
+    path: '/goods',
     element: <CreateGoods />
+  },
+  {
+    path: '/create',
+    element: <Create />
   },
   {
     path: '/',

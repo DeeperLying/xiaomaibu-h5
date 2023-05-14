@@ -1,35 +1,35 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-26 02:12:57
- * @LastEditTime: 2023-04-05 19:43:44
+ * @LastEditTime: 2023-05-14 12:39:18
  * @LastEditors: Lee
  */
 import React, { useEffect, useState } from 'react'
-import { CountDown, Empty, Button } from 'react-vant'
+import { Button, ProductCard, Typography } from 'react-vant'
 import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
+
+import sendRequest from 'src/lib/service/request'
+import styles from './index.module.scss'
 
 // import wx from 'weixin-js-sdk'
 import { getEnvironment, getQueryParams } from 'src/utils/public'
 import { getWxUserAuthCode } from 'src/utils/wx_auth'
-import { Link } from 'react-router-dom'
 
 const Home = () => {
   const querys = useLocation()
+
   const [isWeChat, setIsWeChat] = useState<boolean>(false)
-  // const getLocation = useCallback(() => {
-  //   wx.ready(() => {
-  //     wx.getLocation({
-  //       type: 'wgs84', // 默认为wgs84的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
-  //       success: function (res: any) {
-  //         const latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
-  //         const longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
-  //         const speed = res.speed // 速度，以米/每秒计
-  //         const accuracy = res.accuracy // 位置精度
-  //         console.log(latitude, longitude, speed, accuracy)
-  //       }
-  //     })
-  //   })
-  // }, [])
+  const [goodsList, setGoodsList] = useState<Array<any>>([])
+
+  useEffect(() => {
+    sendRequest({
+      url: '/getGoodsList',
+      method: 'get'
+    }).then(({ data }: any) => {
+      setGoodsList(data?.goodsList)
+    })
+  }, [])
 
   useEffect(() => {
     if (!getEnvironment()) {
@@ -44,18 +44,57 @@ const Home = () => {
     setIsWeChat(true)
   }, [querys?.search])
 
+  const handleBuyGoods = (id: number) => {
+    sendRequest({
+      url: '/comeHerePay',
+      method: 'Get',
+      params: {
+        id
+      }
+    }).then((resolve: any) => {
+      // setFromString(resolve.data)
+      if (resolve.code === 200) {
+        const divForm = document.getElementsByTagName('divform')
+        if (divForm.length) {
+          document.body.removeChild(divForm[0])
+        }
+        const div = document.createElement('divform')
+        div.innerHTML = resolve.data
+        document.body.appendChild(div)
+        // document.forms[0].setAttribute('target', '_blank')
+        document.forms[0].submit()
+      }
+    })
+  }
+
   return (
     <div>
-      <Empty description='工程师正在玩命的开发中....' />
-      <CountDown time={30 * 60 * 60 * 1000} format='DD 天 HH 时 mm 分 ss 秒' />
-
-      <Link to={'/aliPay'}>开启聊天</Link>
-
+      <div className={styles.home_number}>
+        <Typography.Text>买家账号：mfvudv4313@sandbox.com</Typography.Text>
+        <Typography.Text>登录密码：111111</Typography.Text>
+        <Link to={'/create'}>创建商品</Link>
+      </div>
       {isWeChat && (
         <Button type='info' onClick={getWxUserAuthCode}>
           Login
         </Button>
       )}
+
+      <div>
+        {goodsList.map((goods) => {
+          return (
+            <div key={goods.id}>
+              <ProductCard
+                price={goods.sale}
+                desc={goods.goods_desc}
+                title={goods.goods_title}
+                thumb={goods.goods_image}
+                onClick={() => handleBuyGoods(goods.id)}
+              />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
