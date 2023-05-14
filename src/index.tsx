@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 15:49:38
- * @LastEditTime: 2023-03-05 00:06:57
+ * @LastEditTime: 2023-05-14 13:19:48
  * @LastEditors: Lee
  */
 import React from 'react'
@@ -15,9 +15,11 @@ import { BrowserRouter } from 'react-router-dom'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </>
   // </React.StrictMode>
 )
 

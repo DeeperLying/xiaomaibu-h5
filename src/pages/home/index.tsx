@@ -1,11 +1,11 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-26 02:12:57
- * @LastEditTime: 2023-05-14 12:39:18
+ * @LastEditTime: 2023-05-14 13:18:26
  * @LastEditors: Lee
  */
 import React, { useEffect, useState } from 'react'
-import { Button, ProductCard, Typography } from 'react-vant'
+import { Button, ProductCard, Typography, Empty } from 'react-vant'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 
@@ -81,7 +81,7 @@ const Home = () => {
       )}
 
       <div>
-        {goodsList.map((goods) => {
+        {goodsList?.map((goods) => {
           return (
             <div key={goods.id}>
               <ProductCard
@@ -94,6 +94,8 @@ const Home = () => {
             </div>
           )
         })}
+
+        {!goodsList && <Empty description='还没有商品....' />}
       </div>
     </div>
   )
