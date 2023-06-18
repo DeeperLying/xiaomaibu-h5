@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import type { RequestConfig, RequestInterceptors, CancelRequestSource } from './types'
+import { Toast } from 'react-vant'
+import Cookies from 'js-cookie'
 
 class Request {
   // axios 实例
@@ -49,7 +51,13 @@ class Request {
       (res: AxiosResponse) => {
         return res.data
       },
-      (err: any) => err
+      (err: any) => {
+        if (err.response.status == 401) {
+          Cookies.remove('token')
+          Toast.fail('请您先登录')
+        }
+        return err
+      }
     )
   }
   /**

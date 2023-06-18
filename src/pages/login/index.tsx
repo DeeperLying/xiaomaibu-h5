@@ -1,13 +1,13 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2023-06-11 17:08:21
+ * @LastEditTime: 2023-06-18 13:51:29
  * @LastEditors: Lee
  */
 
 import React, { useEffect } from 'react'
 import { Button, Input, Form, Toast, Tabs } from 'react-vant'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import sendRequest from 'src/lib/service/request'
@@ -54,35 +54,45 @@ export default function Login() {
       }
     }).then(({ token }: any) => {
       Cookies.set('token', token)
+      location.href = location.origin
     })
   }
 
   const onPhoneFinish = (values: any) => {
-    console.log(values)
     sendRequest({
       url: 'login/phone',
       method: 'POST',
       data: { ...values }
-    }).then(({ token }: any) => {
+    }).then(async ({ token }: any) => {
       Cookies.set('token', token)
+      location.href = location.origin
     })
+  }
+
+  const handleCommonFooter = () => {
+    return (
+      <div style={{ margin: '16px 16px 0' }}>
+        <Button round nativeType='submit' type='primary' block>
+          登录
+        </Button>
+        <Button
+          round
+          type='default'
+          onClick={() => navigate('/register')}
+          block
+          style={{ marginTop: 15 }}
+        >
+          注册
+        </Button>
+      </div>
+    )
   }
 
   return (
     <>
-      <Tabs active={1}>
+      <Tabs active={0}>
         <Tabs.TabPane title='邮箱登录'>
-          <Form
-            form={form}
-            onFinish={onFinish}
-            footer={
-              <div style={{ margin: '16px 16px 0' }}>
-                <Button round nativeType='submit' type='primary' block>
-                  提交
-                </Button>
-              </div>
-            }
-          >
+          <Form form={form} onFinish={onFinish} footer={handleCommonFooter()}>
             <Form.Item
               rules={[{ required: true, message: '请填写Email' }]}
               name='email'
@@ -101,17 +111,7 @@ export default function Login() {
         </Tabs.TabPane>
 
         <Tabs.TabPane title='手机登录'>
-          <Form
-            form={phoneForm}
-            onFinish={onPhoneFinish}
-            footer={
-              <div style={{ margin: '16px 16px 0' }}>
-                <Button round nativeType='submit' type='primary' block>
-                  提交
-                </Button>
-              </div>
-            }
-          >
+          <Form form={phoneForm} onFinish={onPhoneFinish} footer={handleCommonFooter()}>
             <Form.Item
               rules={[{ required: true, message: '请填写Phone' }]}
               name='phone'

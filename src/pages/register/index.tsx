@@ -1,17 +1,19 @@
 /*
  * @Author: Lee
  * @Date: 2023-06-11 13:35:05
- * @LastEditTime: 2023-06-11 16:20:51
+ * @LastEditTime: 2023-06-18 10:55:15
  * @LastEditors: Lee
  */
 import React, { useState } from 'react'
 import { Button, Form, Input, Flex, Dialog, Tabs } from 'react-vant'
+import { useNavigate } from 'react-router-dom'
 
 import sendRequest from 'src/lib/service/request'
 
 import styles from './index.module.scss'
 
 const Register = () => {
+  const navigate = useNavigate()
   const [mailForm] = Form.useForm()
   const [phoneForm] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -51,6 +53,7 @@ const Register = () => {
           Dialog.alert({
             message: '注册成功'
           })
+          navigate('/login')
         } else {
           Dialog.alert({
             message: '注册失败'
@@ -72,6 +75,7 @@ const Register = () => {
           Dialog.alert({
             message: '注册成功'
           })
+          navigate('/login')
         } else {
           Dialog.alert({
             message: '注册失败'
@@ -81,21 +85,30 @@ const Register = () => {
       .finally(() => setIsLoading(false))
   }
 
+  const handleCommonFooter = () => {
+    return (
+      <div style={{ margin: '16px 16px 0' }}>
+        <Button round nativeType='submit' type='primary' loading={isLoading} block>
+          注册
+        </Button>
+        <Button
+          round
+          type='default'
+          onClick={() => navigate('/login')}
+          block
+          style={{ marginTop: 15 }}
+        >
+          登录
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div>
-      <Tabs active={1}>
+      <Tabs active={0}>
         <Tabs.TabPane title='邮箱注册'>
-          <Form
-            form={mailForm}
-            onFinish={onFinish}
-            footer={
-              <div style={{ margin: '16px 16px 0' }}>
-                <Button round nativeType='submit' type='primary' loading={isLoading} block>
-                  注册
-                </Button>
-              </div>
-            }
-          >
+          <Form form={mailForm} onFinish={onFinish} footer={handleCommonFooter()}>
             <Form.Item
               name='username'
               label='UserName'
@@ -146,17 +159,7 @@ const Register = () => {
           </Form>
         </Tabs.TabPane>
         <Tabs.TabPane title='手机号码注册'>
-          <Form
-            form={phoneForm}
-            onFinish={onPhoneFinish}
-            footer={
-              <div style={{ margin: '16px 16px 0' }}>
-                <Button round nativeType='submit' type='primary' loading={isLoading} block>
-                  注册
-                </Button>
-              </div>
-            }
-          >
+          <Form form={phoneForm} onFinish={onPhoneFinish} footer={handleCommonFooter()}>
             <Form.Item
               name='username'
               label='UserName'

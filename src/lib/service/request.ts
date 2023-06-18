@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-04 19:02:04
- * @LastEditTime: 2023-06-11 14:59:04
+ * @LastEditTime: 2023-06-18 13:35:57
  * @LastEditors: Lee
  */
 import Request from './conf'
@@ -28,7 +28,7 @@ const request = new Request({
   baseURL: 'http://127.0.0.1:8443/api/',
   timeout: 1000 * 60 * 5,
   headers: {
-    Authentication: Cookies.get('Token'),
+    Authentication: Cookies.get('token'),
     'Content-Type': 'application/json; charset=utf-8'
   },
   interceptors: {
