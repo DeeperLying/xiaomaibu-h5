@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2023-06-22 12:52:05
- * @LastEditTime: 2023-06-22 14:15:39
+ * @LastEditTime: 2023-06-22 14:27:34
  * @LastEditors: Lee
  */
 import axios from 'axios'
@@ -67,6 +67,9 @@ serviceAxios.interceptors.response.use(
           break
         case 401:
           message = '您未登录，或者登录已经超时，请先登录！'
+          Cookies.remove('token')
+          Cookies.remove('userInfo')
+          window.location.pathname = '/login'
           break
         case 403:
           message = '您没有权限操作！'
