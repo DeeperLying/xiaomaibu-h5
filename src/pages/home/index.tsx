@@ -1,20 +1,22 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-26 02:12:57
- * @LastEditTime: 2023-05-20 14:31:50
+ * @LastEditTime: 2023-06-22 13:02:51
  * @LastEditors: Lee
  */
 import React, { useEffect, useState } from 'react'
-import { Button, ProductCard, Typography, Empty } from 'react-vant'
+import { Button, ProductCard, Empty } from 'react-vant'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 
 import sendRequest from 'src/lib/service/request'
-import styles from './index.module.scss'
+import { serviceGetGoodsList } from 'src/https/home/home'
 
 // import wx from 'weixin-js-sdk'
 import { getEnvironment, getQueryParams } from 'src/utils/public'
 import { getWxUserAuthCode } from 'src/utils/wx_auth'
+
+import styles from './index.module.scss'
 
 const Home = () => {
   const querys = useLocation()
@@ -23,10 +25,7 @@ const Home = () => {
   const [goodsList, setGoodsList] = useState<Array<any>>([])
 
   useEffect(() => {
-    sendRequest({
-      url: '/getGoodsList',
-      method: 'get'
-    }).then(({ data }: any) => {
+    serviceGetGoodsList().then(({ data }: any) => {
       setGoodsList(data?.goodsList)
     })
   }, [])
@@ -70,8 +69,6 @@ const Home = () => {
   return (
     <div>
       <div className={styles.home_number}>
-        <Typography.Text>买家账号：mfvudv4313@sandbox.com</Typography.Text>
-        <Typography.Text>登录密码：111111</Typography.Text>
         <Link to={'/create'}>创建商品</Link>
       </div>
       {isWeChat && (

@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-03 22:23:36
- * @LastEditTime: 2022-12-24 18:14:01
+ * @LastEditTime: 2023-06-22 13:11:01
  * @LastEditors: Lee
  */
 module.exports = {
@@ -67,6 +67,7 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 0,
     '@typescript-eslint/no-var-requires': 0,
     'react-hooks/rules-of-hooks': 'error', // 非react组件中使用hooks语法这样的语法错误
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': 'warn',
+    'no-debugger': 1
   }
 }

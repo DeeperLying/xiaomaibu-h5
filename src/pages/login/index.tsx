@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2023-06-18 13:51:29
+ * @LastEditTime: 2023-06-22 14:09:38
  * @LastEditors: Lee
  */
 
@@ -39,6 +39,16 @@ export default function Login() {
     }
   }, [])
 
+  const handleReqeustUserInfoSuccess = (token: string, data: any, code: number) => {
+    if (code == 200) {
+      Cookies.set('token', token)
+      Cookies.set('userInfo', JSON.stringify(data))
+      location.href = location.origin
+    } else {
+      Toast.fail('用户名或者密码不对')
+    }
+  }
+
   const onFinish = (values: any) => {
     sendRequest({
       url: 'login',
@@ -52,9 +62,8 @@ export default function Login() {
           return result
         }
       }
-    }).then(({ token }: any) => {
-      Cookies.set('token', token)
-      location.href = location.origin
+    }).then(({ token, data, code }: any) => {
+      handleReqeustUserInfoSuccess(token, data, code)
     })
   }
 
@@ -63,9 +72,8 @@ export default function Login() {
       url: 'login/phone',
       method: 'POST',
       data: { ...values }
-    }).then(async ({ token }: any) => {
-      Cookies.set('token', token)
-      location.href = location.origin
+    }).then(async ({ token, data, code }: any) => {
+      handleReqeustUserInfoSuccess(token, data, code)
     })
   }
 
