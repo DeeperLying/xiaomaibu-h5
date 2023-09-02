@@ -1,16 +1,15 @@
 /*
  * @Author: Lee
  * @Date: 2023-06-11 13:35:05
- * @LastEditTime: 2023-06-18 10:55:15
+ * @LastEditTime: 2023-09-02 17:30:12
  * @LastEditors: Lee
  */
 import React, { useState } from 'react'
 import { Button, Form, Input, Flex, Dialog, Tabs } from 'react-vant'
 import { useNavigate } from 'react-router-dom'
 
-import sendRequest from 'src/lib/service/request'
-
 import styles from './index.module.scss'
+import { fetchGetSendEmail, fetchRegister, fetchRegisterPhone } from 'src/https/home/home'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -26,11 +25,7 @@ const Register = () => {
     }
 
     setIsEmailLoading(true)
-    sendRequest({
-      url: 'sendEmail',
-      params: { email },
-      method: 'get'
-    })
+    fetchGetSendEmail(email)
       .then(({ code }: any) => {
         if (code == 200) {
           Dialog.alert({
@@ -43,11 +38,7 @@ const Register = () => {
 
   const onFinish = (values: any) => {
     setIsLoading(true)
-    sendRequest({
-      url: 'register',
-      data: values,
-      method: 'post'
-    })
+    fetchRegister(values)
       .then(({ code }: any) => {
         if (code == 200) {
           Dialog.alert({
@@ -65,11 +56,7 @@ const Register = () => {
 
   const onPhoneFinish = (values: any) => {
     setIsLoading(true)
-    sendRequest({
-      url: '/register/phone',
-      data: values,
-      method: 'post'
-    })
+    fetchRegisterPhone(values)
       .then(({ code }: any) => {
         if (code == 200) {
           Dialog.alert({
@@ -175,8 +162,7 @@ const Register = () => {
               rules={[
                 { required: true },
                 {
-                  pattern:
-                    /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+                  pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
                   message: '请输入正确的手机号'
                 }
               ]}

@@ -1,16 +1,16 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-26 00:56:22
- * @LastEditTime: 2023-05-20 14:47:01
+ * @LastEditTime: 2023-09-02 16:50:16
  * @LastEditors: Lee
  */
 
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { Empty, Image, ProductCard } from 'react-vant'
-import sendRequest from 'src/lib/service/request'
 
 import styles from './userCenter.module.scss'
+import { fetchGetOrderList } from 'src/https/home/home'
 
 const ALIPAY_STATUS_LIST: { [key: string]: any } = {
   WAIT_BUYER_PAY: '交易创建，等待买家付款',
@@ -24,10 +24,7 @@ const UserCenter = () => {
   const [orderList, setOrderList] = useState<Array<any>>([])
 
   useEffect(() => {
-    sendRequest({
-      url: '/getOrderList',
-      method: 'get'
-    }).then(({ data }: any) => {
+    fetchGetOrderList().then(({ data }: any) => {
       setOrderList(data?.orderList)
     })
   }, [])

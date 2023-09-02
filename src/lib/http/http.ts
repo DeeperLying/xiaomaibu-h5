@@ -1,16 +1,17 @@
 /*
  * @Author: Lee
  * @Date: 2023-06-22 12:52:05
- * @LastEditTime: 2023-06-22 14:27:34
+ * @LastEditTime: 2023-09-02 17:20:13
  * @LastEditors: Lee
  */
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import qs from 'qs'
+// import qs from 'qs'
 
 const serverConfig = {
-  baseURL: 'http://shop.xiaomaibu.pro/api/',
+  //baseURL: 'http://blog.xiaomaibu.pro/api/',
   //baseURL: 'http://127.0.0.1:8443/api/',
+  baseURL: process.env.REACT_APP_BASEURL,
   useTokenAuthorization: true, // 是否开启 token 认证
   timeout: 1000 * 60 * 5
 }
@@ -30,19 +31,18 @@ serviceAxios.interceptors.request.use(
       config.headers['Authentication'] = Cookies.get('token') // 请求头携带 token
     }
     // 设置请求头
-    if (!config.headers['content-type']) {
+    if (!config.headers['Content-Type']) {
       // 如果没有设置请求头
-      if (config.method === 'post') {
-        config.headers['content-type'] = 'application/x-www-form-urlencoded' // post 请求
-        config.data = qs.stringify(config.data) // 序列化,比如表单数据
-      } else {
-        config.headers['content-type'] = 'application/json' // 默认类型
-      }
+      // if (config.method === 'post') {
+      //   config.headers['content-type'] = 'application/x-www-form-urlencoded' // post 请求
+      //   config.data = qs.stringify(config.data) // 序列化,比如表单数据
+      // } else {
+      // }
+      config.headers['Content-Type'] = 'application/json' // 默认类型
     }
-    console.log('请求配置', config)
     return config
   },
-  (error) => {
+  (error: any) => {
     Promise.reject(error)
   }
 )
@@ -106,7 +106,7 @@ serviceAxios.interceptors.response.use(
           break
       }
     }
-    return Promise.reject(message)
+    return Promise.reject({ response: error, message })
   }
 )
 export default serviceAxios

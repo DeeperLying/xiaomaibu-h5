@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-11 18:09:47
- * @LastEditTime: 2023-06-22 14:09:38
+ * @LastEditTime: 2023-09-02 17:24:21
  * @LastEditors: Lee
  */
 
@@ -10,8 +10,8 @@ import { Button, Input, Form, Toast, Tabs } from 'react-vant'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-import sendRequest from 'src/lib/service/request'
 import { getQueryParams } from 'src/utils/public'
+import { fetchGetWxUserAuthInfo, fetchPostLogin, fetchPostLoginPhone } from 'src/https/home/home'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -21,11 +21,7 @@ export default function Login() {
   useEffect(() => {
     const querys = getQueryParams(window.location.search)
     if (querys?.code) {
-      sendRequest({
-        url: '/getWxUserAuthInfo',
-        method: 'GET',
-        params: { code: querys?.code }
-      })
+      fetchGetWxUserAuthInfo(querys?.code)
         .then(({ code, data }: any) => {
           if (code === 200 && Object.keys(data)?.length) {
             Cookies.set('token', data.token)
@@ -50,29 +46,13 @@ export default function Login() {
   }
 
   const onFinish = (values: any) => {
-    sendRequest({
-      url: 'login',
-      method: 'POST',
-      data: { ...values },
-      interceptors: {
-        requestInterceptors(res) {
-          return res
-        },
-        responseInterceptors(result) {
-          return result
-        }
-      }
-    }).then(({ token, data, code }: any) => {
+    fetchPostLogin(values).then(({ token, data, code }: any) => {
       handleReqeustUserInfoSuccess(token, data, code)
     })
   }
 
   const onPhoneFinish = (values: any) => {
-    sendRequest({
-      url: 'login/phone',
-      method: 'POST',
-      data: { ...values }
-    }).then(async ({ token, data, code }: any) => {
+    fetchPostLoginPhone(values).then(async ({ token, data, code }: any) => {
       handleReqeustUserInfoSuccess(token, data, code)
     })
   }
@@ -113,7 +93,7 @@ export default function Login() {
               name='password'
               label='密码'
             >
-              <Input placeholder='请输入密码' />
+              <Input placeholder='请输入密码' type='password' />
             </Form.Item>
           </Form>
         </Tabs.TabPane>
@@ -132,7 +112,7 @@ export default function Login() {
               name='password'
               label='密码'
             >
-              <Input placeholder='请输入密码' />
+              <Input placeholder='请输入密码' type='password' />
             </Form.Item>
           </Form>
         </Tabs.TabPane>

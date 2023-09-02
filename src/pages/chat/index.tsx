@@ -1,14 +1,13 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-05 00:19:04
- * @LastEditTime: 2023-04-01 18:16:16
+ * @LastEditTime: 2023-09-02 16:37:38
  * @LastEditors: Lee
  */
 
 import React, { useState } from 'react'
 import { Form, Input, Button, Toast, Card } from 'react-vant'
-
-import sendRequest from 'src/lib/service/request'
+import { fetchGetChat } from 'src/https/home/home'
 
 type fromType = {
   value: string
@@ -22,18 +21,7 @@ const Chat = () => {
 
   const handleSendChat = (value: string) => {
     setLoading(true)
-    sendRequest({
-      url: '/chat',
-      method: 'GET',
-      params: {
-        value
-      },
-      interceptors: {
-        responseInterceptors(result) {
-          return result
-        }
-      }
-    })
+    fetchGetChat(value)
       .then(({ code, data }: any) => {
         if (code === 200) {
           setChatList((chatList) => chatList.concat(data?.choices))

@@ -1,34 +1,25 @@
 /*
  * @Author: Lee
  * @Date: 2023-05-07 11:33:14
- * @LastEditTime: 2023-05-14 12:12:04
+ * @LastEditTime: 2023-09-02 16:42:37
  * @LastEditors: Lee
  */
 
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from 'react-vant'
-import sendRequest from 'src/lib/service/request'
+import { fetchGetComeHerePay, fetchGetGoodsList } from 'src/https/home/home'
 
 const CreateGoods = () => {
   const [goodsList, setGoodsList] = useState<Array<any>>([])
 
   useEffect(() => {
-    sendRequest({
-      url: '/getGoodsList',
-      method: 'get'
-    }).then(({ data }: any) => {
+    fetchGetGoodsList().then(({ data }: any) => {
       setGoodsList(data?.goodsList)
     })
   }, [])
 
   const handleBuyGoods = (id: number) => {
-    sendRequest({
-      url: '/comeHerePay',
-      method: 'Get',
-      params: {
-        id
-      }
-    }).then((resolve: any) => {
+    fetchGetComeHerePay(id).then((resolve: any) => {
       // setFromString(resolve.data)
       if (resolve.code === 200) {
         const divForm = document.getElementsByTagName('divform')

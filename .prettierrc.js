@@ -1,3 +1,9 @@
+/*
+ * @Author: Lee
+ * @Date: 2023-06-22 15:51:32
+ * @LastEditTime: 2023-09-02 16:12:32
+ * @LastEditors: Lee
+ */
 module.exports = {
   // 指定代码长度，超出换行
   printWidth: 100,

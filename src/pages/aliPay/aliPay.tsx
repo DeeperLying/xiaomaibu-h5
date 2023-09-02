@@ -1,13 +1,13 @@
 /*
  * @Author: Lee
  * @Date: 2023-04-05 11:53:59
- * @LastEditTime: 2023-04-05 16:40:43
+ * @LastEditTime: 2023-09-02 16:35:12
  * @LastEditors: Lee
  */
 
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-vant'
-import sendRequest from 'src/lib/service/request'
+import { fetchComeHerePay } from 'src/https/home/home'
 
 const AliPay = () => {
   const [fromString] = useState<string | null>(null)
@@ -17,14 +17,7 @@ const AliPay = () => {
   }, [fromString])
 
   const handlePay = () => {
-    sendRequest({
-      url: '/comeHerePay',
-      method: 'POST',
-      data: {
-        b: 1,
-        a: 2
-      }
-    }).then((resolve: any) => {
+    fetchComeHerePay().then((resolve: any) => {
       console.log(resolve)
       // setFromString(resolve.data)
       if (resolve.code === 200) {

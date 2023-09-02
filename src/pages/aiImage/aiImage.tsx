@@ -1,13 +1,13 @@
 /*
  * @Author: Lee
  * @Date: 2023-04-02 10:53:47
- * @LastEditTime: 2023-04-02 12:28:35
+ * @LastEditTime: 2023-09-02 16:35:46
  * @LastEditors: Lee
  */
 
 import React, { useState } from 'react'
 import { Form, Input, Button, Toast, Image } from 'react-vant'
-import sendRequest from 'src/lib/service/request'
+import { fetchCreateAiImage } from 'src/https/home/home'
 
 type fromType = {
   value: string
@@ -20,18 +20,7 @@ const AiImage = () => {
 
   const handleCreateAiImage = (value: string) => {
     setLoading(true)
-    sendRequest({
-      url: '/createAiImage',
-      method: 'GET',
-      params: {
-        value
-      },
-      interceptors: {
-        responseInterceptors(result) {
-          return result
-        }
-      }
-    })
+    fetchCreateAiImage(value)
       .then(({ code, data }: any) => {
         if (code === 200) {
           const image = data.data

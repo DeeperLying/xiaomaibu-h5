@@ -1,12 +1,12 @@
 /*
  * @Author: Lee
  * @Date: 2023-05-14 12:09:03
- * @LastEditTime: 2023-05-14 12:11:18
+ * @LastEditTime: 2023-09-02 16:39:16
  * @LastEditors: Lee
  */
 import React, { useState } from 'react'
-import sendRequest from 'src/lib/service/request'
 import { Button, Form, Input, Toast } from 'react-vant'
+import { fetchCreateGoods } from 'src/https/home/home'
 
 const Create = () => {
   const [form] = Form.useForm()
@@ -17,11 +17,7 @@ const Create = () => {
     data.sex = Number(data.sex)
     setCreateLoading(true)
 
-    sendRequest({
-      url: '/createGoods',
-      method: 'POST',
-      data
-    })
+    fetchCreateGoods(values)
       .then(({ code }: any) => {
         if (code == 200) {
           Toast.success('创建成功')
