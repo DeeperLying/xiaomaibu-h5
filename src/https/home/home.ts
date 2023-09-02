@@ -3,136 +3,110 @@ import serviceAxios from 'src/lib/http/http'
 /*
  * @Author: Lee
  * @Date: 2023-06-22 13:00:08
- * @LastEditTime: 2023-09-02 17:29:54
+ * @LastEditTime: 2023-09-03 01:00:14
  * @LastEditors: Lee
  */
 const serviceGetGoodsList = () => {
-  return serviceAxios({
-    url: '/getGoodsList',
+  return serviceAxios('/getGoodsList', {
     method: 'get'
   })
 }
 
 const fetchCreateAiImage = (value: any) => {
-  return serviceAxios({
-    url: '/createAiImage',
-    method: 'GET',
-    params: {
-      value
-    }
+  return serviceAxios('/createAiImage?value=' + value, {
+    method: 'GET'
   })
 }
 
 const fetchComeHerePay = () => {
-  return serviceAxios({
-    url: '/comeHerePay',
+  return serviceAxios('/comeHerePay', {
     method: 'POST',
-    data: {
+    body: JSON.stringify({
       b: 1,
       a: 2
-    }
+    })
   })
 }
 
 const fetchGetComeHerePay = (id: any) => {
-  return serviceAxios({
-    url: '/comeHerePay',
-    method: 'Get',
-    params: {
-      id
-    }
+  return serviceAxios('/comeHerePay?id=' + id, {
+    method: 'Get'
   })
 }
 
 const fetchGetChat = (value: any) => {
-  return serviceAxios({
-    url: '/chat',
-    method: 'GET',
-    params: {
-      value
-    }
+  return serviceAxios('/chat?value=' + value, {
+    method: 'GET'
   })
 }
 
 const fetchCreateGoods = (data: any) => {
-  return serviceAxios({
-    url: '/createGoods',
+  return serviceAxios('/createGoods', {
     method: 'POST',
-    data
+    body: JSON.stringify(data)
   })
 }
 
 const fetchGetGoodsList = () => {
-  return serviceAxios({
-    url: '/getGoodsList',
+  return serviceAxios('/getGoodsList', {
     method: 'get'
   })
 }
 
 const fetchGetWxUserAuthInfo = (code: any) => {
-  return serviceAxios({
-    url: '/getWxUserAuthInfo',
-    method: 'GET',
-    params: { code }
+  return serviceAxios('/getWxUserAuthInfo?code=' + code, {
+    method: 'GET'
   })
 }
 
 const fetchPostLogin = (values: any) => {
-  return serviceAxios({
-    url: 'login',
+  return serviceAxios('/login', {
     method: 'POST',
-    data: { ...values }
+    body: JSON.stringify({ ...values })
   })
 }
 
 const fetchPostLoginPhone = (values: any) => {
-  return serviceAxios({
-    url: 'login/phone',
+  return serviceAxios('/login/phone', {
     method: 'POST',
-    data: { ...values }
+    body: JSON.stringify({ ...values })
   })
 }
 
 const fetchGetSendEmail = (email: any) => {
-  return serviceAxios({
-    url: 'sendEmail',
-    params: { email },
+  return serviceAxios('/sendEmail?email=' + email, {
     method: 'get'
   })
 }
 
 const fetchGetOrderList = () => {
-  return serviceAxios({
-    url: '/getOrderList',
+  return serviceAxios('/getOrderList', {
     method: 'get'
   })
 }
 
 const fetchWxRequest = () => {
-  return serviceAxios({
-    url: 'wxRequest',
-    method: 'GET',
-    params: {
-      signature: '随便',
-      timestamp: '2e434234234',
-      nonce: '34234234df',
-      echostr: '999993242323'
-    }
+  return serviceAxios('wxRequest', {
+    method: 'GET'
+    // params: {
+    //   signature: '随便',
+    //   timestamp: '2e434234234',
+    //   nonce: '34234234df',
+    //   echostr: '999993242323'
+    // }
   })
 }
 
 const fetchRegister = (data: any) => {
-  return serviceAxios({
-    url: 'register',
-    data,
-    method: 'post'
+  return serviceAxios('/register', {
+    method: 'post',
+    body: JSON.stringify(data)
   })
 }
 
 const fetchRegisterPhone = (data: any) => {
-  return serviceAxios({
-    url: '/register/phone',
-    data,
+  return serviceAxios('/register/phone', {
+    body: JSON.stringify(data),
     method: 'post'
   })
 }
