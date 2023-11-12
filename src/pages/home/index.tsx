@@ -1,7 +1,7 @@
 /*
  * @Author: Lee
  * @Date: 2023-03-26 02:12:57
- * @LastEditTime: 2023-09-02 16:43:50
+ * @LastEditTime: 2023-09-03 11:09:04
  * @LastEditors: Lee
  */
 import React, { useEffect, useState } from 'react'
@@ -22,6 +22,15 @@ const Home = () => {
 
   const [isWeChat, setIsWeChat] = useState<boolean>(false)
   const [goodsList, setGoodsList] = useState<Array<any>>([])
+
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    console.log('watch page serviceWork', event)
+  })
+
+  useEffect(() => {
+    navigator.serviceWorker.controller &&
+      navigator.serviceWorker.controller.postMessage('this message is from page')
+  }, [])
 
   useEffect(() => {
     serviceGetGoodsList().then(({ data }: any) => {

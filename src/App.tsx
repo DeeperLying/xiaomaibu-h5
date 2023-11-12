@@ -1,10 +1,10 @@
 /*
  * @Author: Lee
  * @Date: 2022-12-03 20:59:01
- * @LastEditTime: 2023-03-26 01:20:47
+ * @LastEditTime: 2023-09-03 12:57:24
  * @LastEditors: Lee
  */
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useRoutes } from 'react-router'
 // import wx from 'weixin-js-sdk'
 
@@ -28,6 +28,38 @@ function App(): ReactElement {
   //     })
   //   }
   // }, [])
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      /* 创建并指定对应的执行内容 */
+      /* scope 参数是可选的，可以用来指定你想让 service worker 控制的内容的子目录。 在这个例子里，我们指定了 '/'，表示 根网域下的所有内容。这也是默认值。 */
+      navigator.serviceWorker
+        .register('./serviceWorker.js', { scope: './' })
+        .then(function(registration) {
+          console.log(
+            'ServiceWorker registration successful with scope=======: ',
+            registration.scope
+          )
+          // 2. 通过`registration`对象获得`PushManager`对象
+          const pushManager = registration.pushManager
+
+          // 3. 通过`PushManager`对象订阅消息推送，获得`subscription`对象
+          pushManager
+            .subscribe({
+              userVisibleOnly: true,
+              applicationServerKey:
+                'BHXrxJPYpQSwGMwcN-HprCaU_Po9POIUvqWFLFq9UUNHP5SNJKxk_Io59y8_twMTOuB5SbpbcPBwHFo2kBUj7vQ'
+            })
+            .then((subscription) => {
+              // 4. 将`subscription`对象发送给服务器，由服务器保存
+              console.log(subscription)
+            })
+        })
+        .catch(function(err) {
+          console.log('ServiceWorker registration failed: ', err)
+        })
+    }
+  }, [])
 
   const element = useRoutes(RouterConfig)
   return (
